@@ -14,12 +14,21 @@ $(document).ready(function() {
     const modalImage = $("#modal-content");
     const closeButton = $("span.close");
     const wrapper = $("#wrapper");
+    const body = $("body");
     const elementOnBottom = document.getElementById('elementOnBottom');
+
+    const modalOpenClass = "modal-open";
 
     const observer = new IntersectionObserver(loadMore);
 
     $(closeButton).on("click", function() {
-        $(modal).css("display", "none");
+        closeModal();
+    });
+
+    $(window).on("click", function(event) {
+        if ($(event.target).is($(modal))) {
+            closeModal();
+        }
     });
 
     let thumbnailsOrdered = [];
@@ -77,12 +86,13 @@ $(document).ready(function() {
     }
 
     function onThumbnailLoad(image, data, index, uncompressedImage) {
-        image = $(image).attr("data-src", uncompressedImage).width("20%").height("auto");
+        image = $(image).attr("data-src", uncompressedImage).attr("class", "thumbnail").width("20%").height("auto");
 
         $(image).on("click", function() {
             let uncompressedImage = $(this).attr("data-src");
             $(modal).css("display", "block");
             $(modalImage).attr("src", uncompressedImage);
+            $(body).addClass(modalOpenClass);
         });
 
         let title = "No Title";
@@ -105,5 +115,10 @@ $(document).ready(function() {
 
     function numericSortDescending(a, b) {
         return b[0] - a[0];
+    }
+
+    function closeModal() {
+        $(modal).css("display", "none");
+        $(body).removeClass(modalOpenClass);
     }
 });
