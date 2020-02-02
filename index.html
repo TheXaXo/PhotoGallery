@@ -5,14 +5,17 @@
 		<script src="scripts/jquery-appear-original/index.js"></script>
 		<script src="scripts/blueimp-load-image/js/load-image.all.min.js"></script>
 		<script src="scripts/main.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css">
         <title>Photo Gallery</title>
     </head>
     <body>
+		<div id="modal" class="modal">
+			<span class="close">&times;</span>
+			<img class="modal-content" id="modal-content">
+		</div>
 		<div id="wrapper">
 			<h1>This is an example of a simple HTML/JS photo gallery.</h1>
 		</div>
-		<div id="elementOnBottom">  
-			<h2 class="text-center">Loading More ...</h2>
-		</div>
+		<div id="elementOnBottom"></div>
     </body>
 </html>

@@ -10,10 +10,17 @@ $(document).ready(function() {
 
     const limitPerPage = 5;
 
+    const modal = $("#modal");
+    const modalImage = $("#modal-content");
+    const closeButton = $("span.close");
     const wrapper = $("#wrapper");
     const elementOnBottom = document.getElementById('elementOnBottom');
 
     const observer = new IntersectionObserver(loadMore);
+
+    $(closeButton).on("click", function() {
+        $(modal).css("display", "none");
+    });
 
     let thumbnailsOrdered = [];
 
@@ -71,6 +78,12 @@ $(document).ready(function() {
 
     function onThumbnailLoad(image, data, index, uncompressedImage) {
         image = $(image).attr("data-src", uncompressedImage).width("20%").height("auto");
+
+        $(image).on("click", function() {
+            let uncompressedImage = $(this).attr("data-src");
+            $(modal).css("display", "block");
+            $(modalImage).attr("src", uncompressedImage);
+        });
 
         let title = "No Title";
         let description = "No Description";
