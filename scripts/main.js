@@ -5,8 +5,7 @@ $(document).ready(function() {
     const titleTagHexadecimal = 0x5;
     const descriptionTagHexadecimal = 0x78;
 
-    const extractFileNameRegex = /[\w]+?(?=\.)/g;
-    const extractExtensionRegex = /\.(jpe?g)$/;
+    const extractFileRegex = /([\w]+?(?=\.))\.(jpe?g)$/;
 
     const limitPerPage = 5;
 
@@ -39,14 +38,10 @@ $(document).ready(function() {
             let thumbnailsMap = new Map();
 
             $(data).find("a").attr("href", function(i, thumbnail) {
-                if (thumbnail.match(extractExtensionRegex)) {
-                    let matchesArray = thumbnail.match(extractFileNameRegex);
-
-                    if (matchesArray == null) {
-                        return;
-                    }
-
-                    let thumbnailNameAsNumber = Number(matchesArray[0]);
+				let match = thumbnail.match(extractFileRegex);
+				
+                if (match) {               
+                    let thumbnailNameAsNumber = Number(match[1]);
 
                     if (isNaN(thumbnailNameAsNumber)) {
                         return;
@@ -76,7 +71,14 @@ $(document).ready(function() {
         }
 
         let thumbnail = thumbnailsOrdered[index];
-        let uncompressedImage = uncompressedImagesFolder + thumbnail.substring(thumbnail.lastIndexOf('/') + 1);
+		let match = thumbnail.match(extractFileRegex);
+		
+		if (!match) {
+			return;
+		}
+		
+		let thumbnailFileName = match[0];
+        let uncompressedImage = uncompressedImagesFolder + thumbnailFileName;
 
         loadImage(thumbnail, function(image, data) {
             onThumbnailLoad(image, data, index, uncompressedImage)
