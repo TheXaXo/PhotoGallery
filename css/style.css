@@ -1,3 +1,9 @@
+body {
+	background: #2D2E30;
+    font-family: 'Open Sans', sans-serif;
+	color: white;
+}
+
 .thumbnail:hover {
     cursor: pointer;
 	opacity: 0.8;
@@ -7,7 +13,7 @@
   display: none;
   position: fixed;
   z-index: 1;
-  padding-top: 100px;
+  padding-top: 5%;
   left: 0;
   top: 0;
   width: 100%;
@@ -20,7 +26,6 @@
 .modal-content {
   margin: auto;
   display: block;
-  width: 65%;
 }
 
 .modal-content {
@@ -38,7 +43,7 @@
   top: 15px;
   right: 35px;
   color: #f1f1f1;
-  font-size: 40px;
+  font-size: 2rem;
   font-weight: bold;
   transition: 0.3s;
 }

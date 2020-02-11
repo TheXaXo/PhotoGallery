@@ -10,16 +10,20 @@ $(document).ready(function() {
     const limitPerPage = 5;
 
     const modal = $("#modal");
+	const modalOpenClass = "modal-open";
     const modalImage = $("#modal-content");
     const closeButton = $("span.close");
     const wrapper = $("#wrapper");
     const body = $("body");
     const elementOnBottom = document.getElementById('elementOnBottom');
 
-    const modalOpenClass = "modal-open";
+	console.log($(window).width());
+	console.log($(window).height());
+	
+	const viewPortRatio = $(window).width() / $(window).height();
 
     const observer = new IntersectionObserver(loadMore);
-
+	
     $(closeButton).on("click", function() {
         closeModal();
     });
@@ -92,8 +96,10 @@ $(document).ready(function() {
 
         $(image).on("click", function() {
             let uncompressedImage = $(this).attr("data-src");
+			let imageRatio = $(this).width() / $(this).height();
+			
             $(modal).css("display", "block");
-            $(modalImage).attr("src", uncompressedImage);
+            $(modalImage).attr("src", uncompressedImage).width(imageRatio * viewPortRatio * 18.8 + "%");
             $(body).addClass(modalOpenClass);
         });
 
@@ -121,6 +127,7 @@ $(document).ready(function() {
 
     function closeModal() {
         $(modal).css("display", "none");
+		$(modalImage).attr("src", "");
         $(body).removeClass(modalOpenClass);
     }
 });
